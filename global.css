@@ -1,0 +1,157 @@
+/*vars*/
+
+:root {
+    --font: 'tilt neon', 'courgette', 'poppins', sans-serif;
+    --height:100%;
+    --width: 100%;
+    --light: #e0e0e0;
+    --dark1: #282828;
+    --dark2: #343434;
+    --dark3: #414141;
+    --green: #81c44e;
+    --red:   #b44a4a;
+    --blue:  #4788f4;
+    --yellow:#fbbc05;
+}
+
+/*General*/
+
+html {
+    max-height: var(--height);
+    width: var(--width);
+}
+body {
+    background-color: var(--dark1);
+    font-family: var(--font);
+    font-size: 12pt;
+    color: rgb(255, 255, 255);
+    vertical-align: middle;
+    margin: auto;
+    text-align: center;
+    overflow: visible;
+    height: 100vh;
+    width: 100%;
+}
+h1 {
+    font-family: 'tilt neon';
+}
+h2 {
+    font-family: 'courgette';
+    font-size: 21pt;
+    margin: 0;
+}
+h3 {
+    font-family: 'poppins';
+}
+p {
+    font-family: 'poppins';
+}
+a {
+    color: inherit;
+    text-decoration: inherit;
+}
+.bodyText {
+    font-size: 14px;
+    text-align: left;
+    margin-top: 0px;
+}
+.red {
+    color: red;
+}
+.light-red {
+    color: lightcoral;
+}
+#bgImg{
+    /*background: lightblue url("backgrounds/stripes.jpeg") no-repeat center/cover;*/
+    background: var(--dark1) no-repeat center/cover;
+    -webkit-filter: blur(4px);
+    filter: blur(4px);
+    position: fixed;
+    z-index: -10;
+    height: var(--height);
+    width:  var(--width);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.bg-white {
+    background-color: rgb(255, 255, 255);
+}
+.margin0 {
+    margin: 0;
+}
+.gap10 {
+    gap: 10px;
+}
+.gap20 {
+    gap: 20px;
+}
+.hrzFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    gap: 20px
+}
+.vrtFlex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    flex-direction: column;
+}
+.hrzFlexLeftC {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px
+}
+.hrzFlexLeft {
+    display: flex;
+    justify-content: left;
+    gap: 20px
+}
+.vrtFlexLeft {
+    display: flex;
+    justify-content: left;
+    flex-direction: column;
+}
+.flexSpaceBetween {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.flexSpaceBetweenLeft {
+    display: flex;
+    align-items: Left;
+    justify-content: space-between;
+}
+.icon {
+    display: flex;
+    transform: scale(1.5); 
+    fill: white;
+    filter: drop-shadow(2px 2px 1px rgba(0,0,0,0.5));
+    width: 24px;
+    height: 24px;
+}
+.anchor {
+    position: relative;
+    top: 0;
+    height: 1px;
+}
+.hidden {
+    display: none !important;
+}
+.active {
+    display: flex;
+}
+/*
+::-webkit-scrollbar {
+    display: none;  
+}
+*/
+::-webkit-scrollbar-track {
+    background-color: var(--dark1); 
+
+}

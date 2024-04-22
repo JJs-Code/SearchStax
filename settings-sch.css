@@ -1,0 +1,259 @@
+/*vars*/
+
+:root {
+    --inputWidth: 700px;
+    --nameCut: 275px;
+    --nameMaxWidth: 261px;
+}
+
+
+/* Page */
+
+#schTitle {
+    padding-bottom: 0;
+}
+.subTitle {
+    margin: 5px;
+}
+.schMsg, .bmMsg {
+    font-size: 12pt;
+    font-weight: 500;
+    font-family: courier;
+}
+#warningMsg, #bmWarningMsg {
+    color: red;
+}
+.syntaxMsg, .bmSyntaxMsg {
+    color: orange;
+}
+#savedMsg, #bmSavedMsg {
+    color: #e0fcbe;
+}
+.warningFlash, .bmWarningFlash {
+    animation: flashWhite-Red 0.5s;
+}
+@keyframes flashWhite-Red {
+    0% {color: white;}
+    20% {color: white;}
+    100% {color: red;}
+}
+.syntaxFlash, .bmSyntaxFlash {
+    animation: flashWhite-Orange 0.5s;
+}
+@keyframes flashWhite-Orange {
+    0% {color: white;}
+    20% {color: white;}
+    100% {color: orange;}
+}
+.savedFlash, .bmSavedFlash {
+    animation: flashWhite-Green 0.5s;
+}
+@keyframes flashWhite-Green {
+    0% {color: #81c44e;}
+    20% {color: #81c44e;}
+    100% {color: #e0fcbe;}
+}
+.inactive {
+    opacity: 70%;
+}
+
+/* BUTTONS */
+
+button {
+    margin: auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: var(--font);
+    font-size: 1em;
+    border-radius: 20px;
+    padding: 0px;
+    cursor: pointer;
+}
+.btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    height: 50px;
+    width: 160px;    
+    padding-right: 20px;
+    padding-left: 20px;
+    margin: 0;
+}
+#actBtnCont {
+    max-width: 700px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 25px;
+}
+.schContBtn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+}
+.sch-btn, .bm-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    padding: 6px;
+    margin: 0;
+}
+.actn-btn {
+    height: 35.2px;
+    width:  35.2px;
+}
+.warn-btn {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+.btnGreen {
+    background-color: var(--green);
+    border-color: var(--green);
+}
+.btnRed {
+    background-color: var(--red);
+    border-color: var(--red);
+}
+.btnBlu {
+    background-color: var(--blue);
+    border-color: var(--blue);
+}
+.btnReorder, .bmBtnReorder {
+    cursor: move;
+}
+.dragging {
+    opacity: 0.001;
+}
+
+/* SEARCH CONTAINER */
+
+.schCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    background-color: var(--dark2);
+    border-radius: 15px;
+    width: calc(100%);
+    max-width: 715.56px;
+    /*max-width: 1450px;*/
+    padding: 10px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+.bmCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    background-color: var(--dark2);
+    border-radius: 15px;
+    width: calc(100%);
+    max-width: 1450px;
+    padding: 10px;
+    margin: auto;
+    margin-top: 10px;
+    margin-bottom: 10px; 
+}
+
+
+/* SEARCH INPUTS */
+
+.schInput {
+    border: 2px solid var(--dark1);
+    height: 30px;
+    border-radius: 10px;
+    background-color: var(--light);
+    padding-left: 10px;
+}
+.schInput:focus {
+    outline: none;
+}
+.schUrl {
+    width: 100%;
+    max-width: var(--inputWidth);
+}
+.bmUrl {
+    width: 100%;
+    max-width: 100%;
+}
+.schName {
+    width: calc(100% - var(--nameCut));
+    max-width: calc(var(--inputWidth) - var(--nameMaxWidth));
+}
+.bmName {
+    /*width: calc(100% - var(--nameCut) + 105px);*/
+    width: calc(100% / 2.5);
+    max-width: 300px;
+    /*max-width: calc(var(--inputWidth) - var(--nameMaxWidth) + 105px);*/
+}
+.schColorCont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.schColor {
+    height: 35.2px;
+    width: 35.2px;
+    border: 0px solid var(--dark1);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+/*DELETE SEARCHES*/
+
+#delMsgBox {
+    --dmbWidth: 380px;
+    --dmbHeight: 120px;
+    --dmbPadding: 20px;
+    --dmbBorder: 4px;
+    position: fixed;
+    top: calc(50% - var(--dmbHeight) / 2);
+    right: calc(50% - (var(--sidebar-width) / 2) - (var(--dmbWidth) / 2) - var(--dmbPadding) - (var(--dmbBorder) / 2));
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: var(--dmbWidth);
+    height: var(--dmbHeight);
+    background-color: var(--dark1);
+    padding: 20px;
+    padding-left: var(--dmbPadding);
+    padding-right: var(--dmbPadding);
+    border-radius: 10px;
+    border: black solid var(--dmbBorder);
+}
+#delMsgTitle {
+    margin: 0;
+    font-weight: 500;
+    font-style: italic;
+}
+#daaCont {
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11pt;
+    gap: 5px;
+}
+.choiceCont {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    margin-top: 0;
+    margin-bottom: 0;
+    gap: 20px
+}

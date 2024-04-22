@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Settings</title>
+    <link rel="icon" href="Logo.png">
+
+    <!--external files-->
+    <link rel="stylesheet" href="global.css">
+    <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="settings-bg.css">
+    <link rel="stylesheet" href="settings-sch.css">
+    <link rel="stylesheet" href="settings-grl.css">
+
+    <!--fonts-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Courgette&amp;family=Tilt+Neon&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+</head>
+
+<body>
+    <!--settings page-->
+    <div id="sidebar">
+
+        <div class="sidebar" id="top-buttons" >
+            <h1 id="logoCont">
+                <img  id="headerLogo" class="innerHeading" src="Logo.png" alt="" />
+                <span id="headerText" class="innerHeading">Search Stax</span>
+            </h1>
+            <a class="btn-menu-bg" id="btn-sch" href="#search">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M784-120 532-372q-30 24-69 38t-83 14q-109 0-184.5-75.5T120-580q0-109 75.5-184.5T380-840q109 0 184.5 75.5T640-580q0 44-14 83t-38 69l252 252-56 56ZM380-400q75 0 127.5-52.5T560-580q0-75-52.5-127.5T380-760q-75 0-127.5 52.5T200-580q0 75 52.5 127.5T380-400Z"/>
+                </svg>
+                <span class="menuTitle">Search</span>
+            </a>
+            <a class="btn-menu-bg" id="btn-bm" href="#bookmarks">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M200-120v-640q0-33 23.5-56.5T280-840h400q33 0 56.5 23.5T760-760v640L480-240 200-120Zm80-122 200-86 200 86v-518H280v518Zm0-518h400-400Z"/>
+                </svg>
+                <span class="menuTitle">Bookmarks</span>
+            </a>
+            <a class="btn-menu-bg" id="btn-bg" href="#background">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M200-120q-33 0-56.5-23.5T120-200v-240h80v240h240v80H200Zm320 0v-80h240v-240h80v240q0 33-23.5 56.5T760-120H520ZM240-280l120-160 90 120 120-160 150 200H240ZM120-520v-240q0-33 23.5-56.5T200-840h240v80H200v240h-80Zm640 0v-240H520v-80h240q33 0 56.5 23.5T840-760v240h-80Zm-140-40q-26 0-43-17t-17-43q0-26 17-43t43-17q26 0 43 17t17 43q0 26-17 43t-43 17Z"/>
+                </svg>
+                <span class="menuTitle">Backgrounds</span>
+            </a>
+            <a class="btn-menu-bg" id="btn-grl" href="#general">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="m370-80-16-128q-13-5-24.5-12T307-235l-119 50L78-375l103-78q-1-7-1-13.5v-27q0-6.5 1-13.5L78-585l110-190 119 50q11-8 23-15t24-12l16-128h220l16 128q13 5 24.5 12t22.5 15l119-50 110 190-103 78q1 7 1 13.5v27q0 6.5-2 13.5l103 78-110 190-118-50q-11 8-23 15t-24 12L590-80H370Zm70-80h79l14-106q31-8 57.5-23.5T639-327l99 41 39-68-86-65q5-14 7-29.5t2-31.5q0-16-2-31.5t-7-29.5l86-65-39-68-99 42q-22-23-48.5-38.5T533-694l-13-106h-79l-14 106q-31 8-57.5 23.5T321-633l-99-41-39 68 86 64q-5 15-7 30t-2 32q0 16 2 31t7 30l-86 65 39 68 99-42q22 23 48.5 38.5T427-266l13 106Zm42-180q58 0 99-41t41-99q0-58-41-99t-99-41q-59 0-99.5 41T342-480q0 58 40.5 99t99.5 41Zm-2-140Z"/>
+                </svg>
+                <span class="menuTitle">General</span>
+            </a>
+        </div>
+
+        <!--div class="sidebar" id="bottom-buttons">
+            <div>
+                <a class="btn-menu-bg" id="btn-thanks" href="#thanks">
+                    <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M160-120v-80h640v80H160Zm160-160q-66 0-113-47t-47-113v-400h640q33 0 56.5 23.5T880-760v120q0 33-23.5 56.5T800-560h-80v120q0 66-47 113t-113 47H320Zm0-80h240q33 0 56.5-23.5T640-440v-320H240v320q0 33 23.5 56.5T320-360Zm400-280h80v-120h-80v120ZM320-360h-80 400-320Z"/>
+                    </svg>
+                    <span class="menuTitle">Say Thanks</span>
+                </a>
+            </div>
+            <a class="btn-menu-bg" id="btn-feedback" href="#feedback">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M200-80q-33 0-56.5-23.5T120-160v-182l110-125 57 57-80 90h546l-78-88 57-57 108 123v182q0 33-23.5 56.5T760-80H200Zm0-80h560v-80H200v80Zm225-225L284-526q-23-23-22.5-56.5T285-639l196-196q23-23 57-24t57 22l141 141q23 23 24 56t-22 56L538-384q-23 23-56.5 22.5T425-385Zm255-254L539-780 341-582l141 141 198-198ZM200-160v-80 80Z"/>
+                </svg>
+                <span class="menuTitle">Suggestions<br>& Feedback</span>
+            </a>
+            <a class="btn-menu-bg" id="btn-apps" href="#exts">
+                <svg class="btn-menu icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                    <path d="M240-160q-33 0-56.5-23.5T160-240q0-33 23.5-56.5T240-320q33 0 56.5 23.5T320-240q0 33-23.5 56.5T240-160Zm240 0q-33 0-56.5-23.5T400-240q0-33 23.5-56.5T480-320q33 0 56.5 23.5T560-240q0 33-23.5 56.5T480-160Zm240 0q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160ZM240-400q-33 0-56.5-23.5T160-480q0-33 23.5-56.5T240-560q33 0 56.5 23.5T320-480q0 33-23.5 56.5T240-400Zm240 0q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm240 0q-33 0-56.5-23.5T640-480q0-33 23.5-56.5T720-560q33 0 56.5 23.5T800-480q0 33-23.5 56.5T720-400ZM240-640q-33 0-56.5-23.5T160-720q0-33 23.5-56.5T240-800q33 0 56.5 23.5T320-720q0 33-23.5 56.5T240-640Zm240 0q-33 0-56.5-23.5T400-720q0-33 23.5-56.5T480-800q33 0 56.5 23.5T560-720q0 33-23.5 56.5T480-640Zm240 0q-33 0-56.5-23.5T640-720q0-33 23.5-56.5T720-800q33 0 56.5 23.5T800-720q0 33-23.5 56.5T720-640Z"/>
+                </svg>
+                <span class="menuTitle">Other Useful<br>Extensions</span>
+            </a>
+            <p id="version">Version 1.0</p>
+        </div-->
+
+    </div>
+
+
+
+    <div id="canvas">
+
+        <section id="search">
+            <div class="anchor"></div>
+            <h2 class="page-title" id="schTitle">Custom Search</h2>
+            <p class="page-desc">
+                Reorder, enable/disable, delete, and add your own search bars here.
+                <br>
+                Hit 'Save' and refresh the homepage for changes to take effect.
+            </p>
+            <p class="page-desc">To add a new search, enter the search term "SEARCHTEXT" without the quotes in your desired search engine and copy the full URL of the results page to the 'Site url' field here.</p>
+
+            <div id="actBtnCont" class="hrzFlex">
+                <button type="button" class="btn btnGreen" id="addNewSch">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                    </svg>
+                    <span>Add New</span>
+                </button>
+                <button type="button" class="btn btnBlu" id="schSave">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/>
+                    </svg>
+                    <span>Save</span>
+                </button>
+            </div>
+
+            <div id="schDataCont"></div>     
+
+        </section>
+
+        <section id="bookmarks">
+            <div class="anchor"></div>
+            <h2 class="page-title" id="bmTitle">Bookmarks</h2>
+            <p class="page-desc">
+                Reorder, enable/disable, delete, and add new bookmakrs here.
+                <br>
+                Hit 'Save' and refresh the homepage for changes to take effect.
+            </p>
+
+            <div id="bmBtnCont" class="hrzFlex">
+                <button type="button" class="btn btnGreen" id="bmAddNew">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/>
+                    </svg>
+                    <span>Add New</span>
+                </button>
+                <button type="button" class="btn btnBlu" id="bmSave">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                        <path d="M840-680v480q0 33-23.5 56.5T760-120H200q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h480l160 160Zm-80 34L646-760H200v560h560v-446ZM480-240q50 0 85-35t35-85q0-50-35-85t-85-35q-50 0-85 35t-35 85q0 50 35 85t85 35ZM240-560h360v-160H240v160Zm-40-86v446-560 114Z"/>
+                    </svg>
+                    <span>Save</span>
+                </button>
+            </div>
+
+            <div id="bmDataCont"></div>     
+
+        </section>
+
+        <section id="background">
+            <h2 class="page-title">Backgrounds</h2>
+            <p class="page-desc">Refresh the home page for changes to take effect</p>
+
+            <div id="bg-top-conts">
+
+                <div class="bg-cont">
+                    <h1 class="bg-heading">Solid Backgrounds</h1>
+                    <div id="bg-thumbs-solid">
+                        <div class="bg-thumb" id="bg-dark">
+                            <span class="solid-title" id="title-dark">Dark</span>
+                        </div>
+                        <div class="bg-thumb" id="bg-light">
+                            <span class="solid-title" id="title-light">Light</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-cont">
+                    <h1 class="bg-heading">Random Image</h1>
+                    <div class="hrzFlex" id="bg-thumbs-rand">
+
+                        <div class="bg-thumb" id="bg-rand">
+                            <div id="bg-rand-border">
+                                <svg class="btn-menu" id="rand-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960">
+                                    <path d="M424-320q0-81 14.5-116.5T500-514q41-36 62.5-62.5T584-637q0-41-27.5-68T480-732q-51 0-77.5 31T365-638l-103-44q21-64 77-111t141-47q105 0 161.5 58.5T698-641q0 50-21.5 85.5T609-475q-49 47-59.5 71.5T539-320H424Zm56 240q-33 0-56.5-23.5T400-160q0-33 23.5-56.5T480-240q33 0 56.5 23.5T560-160q0 33-23.5 56.5T480-80Z"/>
+                                </svg>
+                            </div>
+                        </div>
+
+                        <div class="vrtFlexLeft" id="bg-rand-settings">
+                            <div name="select-bg-refresh" id="select-bg-refresh">
+
+                                <div class="radio">
+                                    <input type="radio" name="bg-rand-optn" id="bg-daily" checked>
+                                    <label for="bg-daily">
+                                        <span class="rand-options" id="">Change once per day</span>
+                                    </label>
+                                </div>
+
+                                <div class="radio">
+                                    <input type="radio" name="bg-rand-optn" id="bg-new-tab">
+                                    <label for="bg-new-tab">
+                                        <span class="rand-options" id="">Change on new tab</span>
+                                    </label>
+                                </div>
+
+                                <div class="radio">
+                                    <input type="radio" name="bg-rand-optn" id="bg-refresh">
+                                    <label for="bg-refresh">
+                                        <span class="rand-options" id="">Change on refresh</span>
+                                    </label>
+                                </div>
+
+                                <div id="enter-custom-change-interval">
+                                    <!--div class="hrzFlexLeft">
+                                        <input type="radio" name="bg-rand-optn" id="bg-custom">
+                                        <label for="bg-custom">
+                                            <div class="hrzFlexLeft">
+                                                <span class="rand-options" id="">Change every:</span>
+                                                <input type="number" name="select-number" min="1" max="99" value="3" id="bg-custom-no">
+                                                <select name="select-timescale" value="hours" id="bg-custom-unit">
+                                                    <option value="mins"           >Minute(s)</option>
+                                                    <option value="hours" selected >Hour(s)</option>
+                                                    <option value="days"           >Day(s)</option>
+                                                </select>
+                                            </div>
+                                        </label>
+                                    </div-->
+                                </div>
+
+                            </div>
+                        </div>       
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="bg-cont" id="img-select">
+                <h1 class="bg-heading">Select Image</h1>
+                <div id="bgThumbCont">
+                
+                </div>
+            </div>
+
+        </section>
+
+        <section id="general">
+            <h2 class="page-title">General Options</h2>
+            <div id="stgGrlCont" class="vrtFlexLeft">
+
+                <div class="vrtFlexLeft">
+                    <p>Background blur intensity</p>
+                    <div class="vertFlex">
+                        <div class="flexSpaceBetween">
+                            <span>0%</span>
+                            <output for="blurSlider" id="blurValue">Current: 50%</output>
+                            <span>100%</span>
+                        </div>    
+                        <input type="range" id="blurSlider" label="blurSlider" title="blurSlider"></input>
+                        <div id="blurImgCont">
+                            <img id="blurImg" src="backgrounds/Treetops.jpeg" alt="blur test image">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="vrtFlexLeft">
+                    <div class="hrzFlexLeftC">
+                        <label class="switch">
+                            <input type="checkbox" title="" class="on-off" id="delWarn" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <p>Ask before deleting in the search & bookmarks pages</p>
+                    </div>
+                    
+                    <div class="hrzFlexLeftC">
+                        <label class="switch">
+                            <input type="checkbox" title="" class="on-off" id="swapBookmarks" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <p>Swap sides for AI & Bookmarks on Home page</p>
+                    </div>
+
+                    <div class="hrzFlexLeftC">
+                        <label class="switch">
+                            <input type="checkbox" title="" class="on-off" id="googleAnim" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <p>Show border animation for Google search</p>
+                    </div>
+    
+                    <div class="hrzFlexLeftC">
+                        <label class="switch">
+                            <input type="checkbox" title="" class="on-off" id="borderColors" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <p>Show border colors on searchbars</p>
+                    </div>
+    
+                    <div class="hrzFlexLeftC">
+                        <label class="switch">
+                            <input type="checkbox" title="" class="on-off" id="showLogo" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <p>Show Logo on Home Page</p>
+                    </div>
+                </div>
+
+                <!--div class="vrtFlexLeft">
+                    <button type="button" id="btn-setAsHome">Set Search Stax as my default Home and New Tab page</button>
+                </div-->
+
+                <div class="vrtFlexLeft gap10">
+                    <p class="margin0"><b>Import/Export Searches & Bookmarks</b></p>
+                    <p class="margin0 bodyText">
+                    Import & export your search & bookmark settings to and from other chromium browsers using this box, simply copy the text below, and then paste it back here in your other browser.
+                    </p><p class="margin0 bodyText"><i>
+                    Warning: Editing this text may cause unexpected behaviour!
+                    </i></p>              
+                    <textarea id="import-export" title="import-export" placeholder="To import, paste your exported search data here"></textarea>
+                </div>
+
+                <div class="vrtFlexLeft">
+                    <button type="button" id="btn-importSave">Save Changes</button>
+                </div>
+
+                <div class="vrtFlexLeft">
+                    <button type="button" id="btn-reset">Reset all settings to default</button>
+                </div>
+
+            </div>            
+        </section>
+
+        <section id="thanks">
+            <div>
+                
+            </div>            
+        </section>
+
+        <section id="feedback">
+            <div>
+                
+            </div>            
+        </section>
+
+        <section id="exts">
+            <div id="my-exts">
+                <h2 class="page-title">Extensions by me</h2>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="logo/Search Stax White.png"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Search Stax</h1>
+                        <p  class="cws-body">Multiple search bars on your home page, create search bars for any website imaginable</p>
+                    </div>
+                    <a class="cws-btn" href="https://chromewebstore.google.com/search/Search%20Stax%3A%20Multi%20Search%20Home%20Page">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+            </div>
+
+            <h2>Extensions by other developers</h2>
+            <span>I have no affiliation with these extensions or their devs, I just think they're cool</span>
+            <div id="other-exts">
+                <div class="cws-app">
+                    <img class="cws-img bg-white" alt="icon missing" src="https://lh3.googleusercontent.com/yBPJ83IYp2ZmTkvVbT6W8K5XJit0RpTRiKk5XUR9vTUJbQArVNOlXYCGQrc4SF-5i9IfgBFKql4Fa1yNvXn5mofr1g=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Context Menu Search</h1>
+                        <p  class="cws-body">Search the web for selected text using the search functionality on any website, all from the right-click menu</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/QxqnN-zIjR4zUVEdu_eX-kLMsapheOyvb_I19w2Qw25eQzMd18ecELJndPqyPDssy8glqGo5tVfjB4ThnLj22Nc_rkg=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Auto Group Tabs</h1>
+                        <p  class="cws-body">Automatically arranges tabs into user-defined groups based on their URL</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/auto-group-tabs/danncghahncanipdoajmakdbeaophenb">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/m5IdUSqd-0vjxsxR8MaJhLBnyW3QjUMsXsdI_dwDn2n2-HRJXOnvGfBDXWDph1JOWa71mUtKoYoPRu2aqOrzpw_osQ=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Hover Zoom</h1>
+                        <p  class="cws-body">Hover your mouse over an image on any website to see a full size preview</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/hover-zoom+/pccckmaobkjjboncdfnnofkonhgpceea">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/T66wTLk-gpBBGsMm0SDJJ3VaI8YM0Utr8NaGCSANmXOfb84K-9GmyXORLKoslfxtasKtQ4spDCdq_zlp_t3QQ6SI0A=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Dark Reader</h1>
+                        <p  class="cws-body">Dark mode on any website, saves your eyes from being blinded by the default light mode most websites use</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/dark-reader/eimadpbcbfnmbkopoojfekhnkhdbieeh">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/e7UkRkpAz9tddU7HbgO5KsRLqyNO3KMKmKDROqIZoWrVwvv8Ifbjak4-XyAgZJIkvq_SUBZY1dRtqKd7z1aLB4nS=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Last Tab Back</h1>
+                        <p  class="cws-body">Pressing backspace, or the back button on your mouse, will close the current tab if there are no more pages to go back to</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/last-tab-back/oijipkokfkhgojikimbbcafnbppebnhe">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/RYW-UK2LBykg0T2H5FwivxoOkgH8_U91d7ZYbtuC5R9PLgjMP8-UYC7wjOhYiuqNbAxQ16ojzknvuCPYHUgagpBU=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Smooth Scroll</h1>
+                        <p  class="cws-body">Makes scrolling with mouse and keyboard much smoother across the web</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/smoothscroll/nbokbjkabcmbfdlbddjidfmibcpneigj">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+                
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/QwwArjSBXFXl5WOajogwHY6_aYesPwC6GFNAO3PLqxW310k4uTEOhsDcxU9H9uHM8g1VGHX66nGGSOCdMm6tDrw4Ctw=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Better Viewer</h1>
+                        <p  class="cws-body">A superior, feature-full replacement to the default image viewing mode built into Chromium browsers</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/betterviewer/llcpfkbjgkpmapiidpnohffjmmnhpmpb">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app hidden">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/mgfklbEjoahFq4p8dqFQ1urxA7km8R2U1XEVQnp4k3FYDvsPgWzd7h1_szTCqL7Rv9ci7KKrOzMo8lDRhuGOZXREuQ=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">Keyboard Cool - Emoji & Symbol Library</h1>
+                        <p  class="cws-body">Library with all the emojis and symbols, for easy insertion into text fields or copy to clipboard</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/keyboardcool-emoji-symbol/fddpbejpobddgojgjoeojcicdlehlcpl">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+
+                <div class="cws-app">
+                    <img class="cws-img" alt="icon missing" src="https://lh3.googleusercontent.com/S9_5LRhxmhzkW2pLuFqvnXzrRSfyAr4msuEMDVbF2PPa4wYdZeeDIGM2u4oSBCvwMxh5-mBUWLq8H7FTeLouHYTD8Gc=s60"/>
+                    <div class="cws-text vrtFlex">
+                        <h1 class="cws-title">I still don't care about cookies</h1>
+                        <p  class="cws-body">Removes the annoying cookie notification popups on most websites</p>
+                    </div>
+                    <a class="cws-btn" target="_blank" href="https://chromewebstore.google.com/detail/i-still-dont-care-about-c/edibdbjcniadpccecjdfdjjppcpchdlm">
+                        <img src="https://t0.gstatic.com/faviconV2?client=SOCIAL&type=FAVICON&fallback_opts=TYPE,SIZE,URL&url=https://chromewebstore.google.com/detail/context-menu-search/ocpcmghnefmdhljkoiapafejjohldoga&size=40" alt=""/>
+                        <span class="cws-btn-text">Chrome Web Store</span>
+                    </a>
+                </div>
+            </div>        
+        </section>
+
+    </div>
+
+    <!--external scripts-->
+    <script src="arrays.js"></script>
+    <script src="settings-bg.js"></script>
+    <script src="settings-grl.js"></script>
+    <script src="settings-sch.js"></script>
+    <script src="settings-bm.js"></script>
+    <script src="settings.js"></script>
+
+</body>
+</html>
