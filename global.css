@@ -62,7 +62,7 @@ a {
     color: lightcoral;
 }
 #bgImg{
-    /*background: lightblue url("backgrounds/stripes.jpeg") no-repeat center/cover;*/
+    /*background: lightblue url("backgrounds/stripes.jpg") no-repeat center/cover;*/
     background: var(--dark1) no-repeat center/cover;
     -webkit-filter: blur(4px);
     filter: blur(4px);

@@ -50,7 +50,7 @@ function createBgThumbs() {
     backgrounds.forEach(background => {
         const thumbnail = document.createElement('div');
         thumbnail.className = 'bg-thumb';
-        thumbnail.style.backgroundImage = `url('backgrounds/thumbs/${background}.jpeg')`;
+        thumbnail.style.backgroundImage = `url('backgrounds/thumbs/${background}.jpg')`;
 
         // Add element characteristics
         const filenameText = document.createElement('p');
