@@ -299,6 +299,24 @@ function deleteSch(click) {
 }
 
 
+function toggleSearch() {
+    let toggle = this;
+    let schContElement = toggle.closest('.schCont');
+    let nameId = schContElement.id.replace(/-/g, ' ');
+    let toggleCheck = toggle.hasAttribute('checked');
+    if (toggleCheck) {
+        schContElement.classList.add('inactive');
+        toggle.removeAttribute('checked');
+    } else {
+        schContElement.classList.remove('inactive');
+        toggle.setAttribute('checked', '');
+    }
+    toggleCheck = toggle.hasAttribute('checked');
+    storedData[nameId]['state'] = toggleCheck ? 'on' : 'off';
+    localStorage.setItem('schData', JSON.stringify(storedData));
+}
+
+
 function removeDrag() {
     var schConts = document.querySelectorAll('[draggable="true"]');
     schConts.forEach(function(schCont) {
@@ -380,27 +398,14 @@ function detectDelete() {
 };
 
 // on/off
-function schOnOff () {
+function schOnOff() {
+    console.log('on off listener activate');
     let toggles = document.querySelectorAll('.schActv');
     toggles.forEach(function(toggle) {
-        toggle.addEventListener('change', function() {
-            let schContElement = toggle.closest('.schCont');
-            let nameId = schContElement.id.replace(/-/g, ' ');
-            let toggleCheck = toggle.hasAttribute('checked');
-            if (toggleCheck) {
-                schContElement.classList.add('inactive');
-                toggle.removeAttribute('checked');
-            } else {
-                schContElement.classList.remove('inactive');
-                toggle.setAttribute('checked', '');
-            }
-            toggleCheck = toggle.hasAttribute('checked');
-            storedData[nameId]['state'] = toggleCheck ? 'on' : 'off';
-            localStorage.setItem('schData', JSON.stringify(storedData));
-        })
+        toggle.removeEventListener('change', toggleSearch);
+        toggle.addEventListener('change', toggleSearch);
     });
 }
-
 
 // drag & drop sort
 function removeListeners() {

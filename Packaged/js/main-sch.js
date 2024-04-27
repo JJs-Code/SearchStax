@@ -2,7 +2,7 @@
 let storedData = JSON.parse(localStorage.getItem("schData"));
 let urls = storedData ? storedData : defaultSearches;
 let bmStoredData = JSON.parse(localStorage.getItem('bmData'));
-let bmData = bmStoredData ? bmStoredData : defaultBookmarks;
+let bmData = bmStoredData ? bmStoredData : '';
 const header = document.getElementById('headerBar');
 const schAreaCont = document.getElementById('schBarCont');
 const schArea = document.getElementById('searchBars');
@@ -16,16 +16,9 @@ initialize();
 
 function initialize() {
 	bgImgBlur();
-
-	if (storedData) {
-		addSearchElements(storedData);
-	} else {
-		addSearchElements(defaultSearches);
-	}
-
-	if (bmStoredData) {
-		addBookmarks(bmStoredData);
-	}
+	addSearchElements(urls);
+	addBookmarks(bmData);
+	console.log(urls);
 }
 
 //sets the background blur level
@@ -39,7 +32,7 @@ function bgImgBlur() {
 function addSearchElements(data) {
 	const entries = Object.entries(data);
 	for (const [name, { url }] of entries) {
-		if(data[name].state === "on") {
+		if(data[name].state !== "off") {
 			const codeName = name.replace(/\s+/g, "-");
 
 			//add container

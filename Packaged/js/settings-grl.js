@@ -73,12 +73,14 @@ importSave.addEventListener('click', function() {
 //import/export
 const IEField = document.getElementById('import-export');
 const importSave = document.getElementById('btn-importSave');
-let searchData = localStorage.getItem('schData') || {};
-let bookmarkData = localStorage.getItem('bmData') || {};
-const concData = `${searchData}|${bookmarkData}`;
+let searchData = localStorage.getItem('schData') || '';
+let bookmarkData = localStorage.getItem('bmData') || '';
+console.log(searchData + bookmarkData);
+const blankCheck = searchData === '' || bookmarkData === '' ? '' : '|';
+const concData = searchData + blankCheck + bookmarkData;
 IEField.value = concData;
 importSave.addEventListener('click', function() {
-    const [newSchData, newBmData] = IEField.value.split('|');
+    const [newSchData, newBmData] =  IEField.value.split('|');
     localStorage.setItem('schData', newSchData);
     localStorage.setItem('bmData', newBmData);
     location.reload();

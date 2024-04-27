@@ -42,7 +42,7 @@ function setBgImg(background) {
 function createBgThumbs() {
     const bgThumbCont = document.getElementById('bgThumbCont');    
     const imageIndex = backgrounds.reduce((index, background) => {
-        index[background] = `backgrounds/thumbs/${background}`;
+        index[background] = `https://raw.githubusercontent.com/JJs-Code/SearchStax/main/backgrounds/thumbs/${background}`;
         return index;
     }, {});
 
@@ -50,7 +50,7 @@ function createBgThumbs() {
     backgrounds.forEach(background => {
         const thumbnail = document.createElement('div');
         thumbnail.className = 'bg-thumb';
-        thumbnail.style.backgroundImage = `url('backgrounds/thumbs/${background}.jpg')`;
+        thumbnail.style.backgroundImage = `url('https://raw.githubusercontent.com/JJs-Code/SearchStax/main/backgrounds/thumbs/${background}.jpg')`;
 
         // Add element characteristics
         const filenameText = document.createElement('p');

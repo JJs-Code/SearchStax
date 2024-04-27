@@ -11,7 +11,7 @@ const sessionBackground = sessionStorage.getItem('sessionBackground');
 let lastBackgroundChangeDate = '';
 
 function setBackground(source) {
-    bgImgElement.style.backgroundImage = `url('backgrounds/${source}.jpg')`;
+    bgImgElement.style.backgroundImage = `url('https://raw.githubusercontent.com/JJs-Code/SearchStax/main/backgrounds/${source}.jpg')`;
 }
 
 
