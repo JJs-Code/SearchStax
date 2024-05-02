@@ -1,9 +1,15 @@
+// version no
+const versionNo = '0.0.2';
+
+
 // default searches
 const defaultSearches = {
-    Google:       { url: `https://www.google.com/search?q=SEARCHTEXT`,               color: '#0F9D58' },
-    YouTube:      { url: `https://www.youtube.com/results?search_query=SEARCHTEXT`,  color: '#FF0000' },
-    Amazon:       { url: `https://www.amazon.com/s?k=SEARCHTEXT`,                    color: '#FF9900' },
-    Wikipedia:    { url: `https://en.wikipedia.org/wiki/SEARCHTEXT`,                 color: '#000000' }
+    Google:       { url: `https://www.google.com/search?q=SEARCHTEXT`,               color: '#0F9D58', state: 'on' },
+    Google_Images:{ url: `https://www.google.com/search?tbm=isch&q=SEARCHTEXT`,      color: '#0F9D58', state: 'off'},
+    YouTube:      { url: `https://www.youtube.com/results?search_query=SEARCHTEXT`,  color: '#FF0000', state: 'on' },
+    Amazon:       { url: `https://www.amazon.com/s?k=SEARCHTEXT`,                    color: '#FF9900', state: 'on' },
+    Reddit:       { url: `https://www.google.com/search?q=reddit.com%3A+SEARCHTEXT`, color: '#E84100', state: 'off'},
+    Wikipedia:    { url: `https://en.wikipedia.org/wiki/SEARCHTEXT`,                 color: '#000000', state: 'on' }
 };
 
 
@@ -13,8 +19,8 @@ const menuPages = {
     'bookmarks'  : 'btn-bm',
     'background' : 'btn-bg',
     'general'    : 'btn-grl',
-    //'exts'       : 'btn-apps',
-    //'feedback'   : 'btn-feedback',
+    'feedback'   : 'btn-feedback',
+    'exts'       : 'btn-apps',
     //'thanks'     : 'btn-thanks'
 };
 

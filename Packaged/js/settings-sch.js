@@ -12,6 +12,7 @@ let urlMsg           = document.getElementById('urlMsg');
 let uniqueNameMsg    = document.getElementById('uniqueNameMsg');
 let savedMsg         = document.getElementById('savedMsg');
 let draggedIndicator = 0;
+let dragListeners = 0;
 
 
 // initialise
@@ -28,8 +29,9 @@ function updateAll() {
     updateDeleteWarn();
     updateWarningMsgs();
     detectDelete();
-    runListeners();
     stgOnOffAll();
+    runListeners();
+    //console.log('updated all')
 };
 
 function update1stChild()    {firstChild    = schArea.querySelector('div.schCont');}
@@ -51,11 +53,12 @@ function runListeners() {
 }
 
 function initialise() {
-    if (storedData) {
-        addSchConts(storedData);
-    } else {
-        addSchConts(defaultSearches);
+    if (!storedData) {
+        const defaultSearchesStringified = JSON.stringify(defaultSearches).replace('Google_Images', 'Google Images');
+        localStorage.setItem('schData', defaultSearchesStringified);
     }
+    updateStoredData();
+    addSchConts(storedData);
     updateAll();
 }
 
@@ -64,7 +67,7 @@ function addSchConts(obj) {
     entries.forEach(([name, key]) => {
         var newSchCont = document.createElement('div');
         newSchCont.className = 'schCont';
-        newSchCont.id = name != 'blank' ? name.replace(/\s+/g, '-') : 'newSch';
+        newSchCont.id = name != 'blank' ? name.replace(/\s+/g, '_') : 'newSch';
         newSchCont.innerHTML = searchHtml(name, key);
         update1stChild();
         if (firstChild) {
@@ -72,11 +75,12 @@ function addSchConts(obj) {
         } else {
             schArea.appendChild(newSchCont);
         }
+        adjustSchWidth();
     });
 }
 
 function saveCheck() {
-    console.log('saveCheck initiated');
+    //console.log('saveCheck initiated');
     let i = 0;
     let {badName, badUrl} = badSyntax();
 
@@ -206,7 +210,7 @@ function showUniqueNameMsg() {
 }
 
 function showSavedMsg() {
-    console.log('show saveMsg initiated');
+    //console.log('show saveMsg initiated');
     saveSearch();
     updateDeleteBtns();
     updateWarningMsgs();
@@ -220,7 +224,7 @@ function showSavedMsg() {
 
 
 function saveSearch() {
-    console.log('saveSearch initiated');
+    //console.log('saveSearch initiated');
     const schData = {};
     let schContElement = '';
 
@@ -229,7 +233,7 @@ function saveSearch() {
     nameInputs.forEach(function (nameInput) {
         schContElement = nameInput.closest('.schCont');
         let nameValue = nameInput.value;
-        schContElement.id = nameValue.replace(/\s+/g, '-');
+        schContElement.id = nameValue.replace(/\s+/g, '_');
         schData[nameValue] = {};
 
         function inputs(className, prop) {
@@ -241,12 +245,14 @@ function saveSearch() {
                 inputValue = input.value;
             }
             schData[nameValue][prop] = inputValue;
-            console.log('saving search for ' + className + '\tin ' + nameValue);
+            //console.log('saving search for ' + className + '\tin ' + nameValue);
         }
 
         inputs('schUrl',   'url');
         inputs('schColor', 'color');
         inputs('schActv',  'state');
+        updateAll();
+        //location.reload();
     })
 
     localStorage.setItem('schData', JSON.stringify(schData));
@@ -262,18 +268,18 @@ function insertDeleteWarning(click) {
         let checkbox = document.getElementById('daa-cb');
         updateDeleteWarn();
         checkbox.addEventListener('change', function () {
-            console.log('checkbox change detected');
+            //console.log('checkbox change detected');
             if (checkbox.checked) {
-                console.log('check on');
+                //console.log('check on');
                 delWarn = 'off';
             } else {
-                console.log('check off');
+                //console.log('check off');
                 delWarn = 'on';
             };
             localStorage.setItem('delWarn', JSON.stringify(delWarn));
             updateDeleteWarn();
-            console.log(`Delete confirmation set to ${delWarn}`);
-            console.log(document.getElementById('delWarn'));
+            //console.log(`Delete confirmation set to ${delWarn}`);
+            //console.log(document.getElementById('delWarn'));
         });
         document.getElementById('warn-cancel').addEventListener('click', function() {
             document.getElementById('delMsgBox').remove();
@@ -286,10 +292,10 @@ function insertDeleteWarning(click) {
 }
 
 function deleteSch(click) {
-    console.log('delete clicked');
+    //console.log('delete clicked');
     click.preventDefault();
     let schContElement = click.target.closest('.schCont');
-    let nameId = schContElement.id.replace(/-/g, ' ');
+    let nameId = schContElement.id.replace(/_/g, ' ');
     schContElement.remove();
     updateStoredData();
     delete storedData[nameId];
@@ -302,7 +308,7 @@ function deleteSch(click) {
 function toggleSearch() {
     let toggle = this;
     let schContElement = toggle.closest('.schCont');
-    let nameId = schContElement.id.replace(/-/g, ' ');
+    let nameId = schContElement.id.replace(/_/g, ' ');
     let toggleCheck = toggle.hasAttribute('checked');
     if (toggleCheck) {
         schContElement.classList.add('inactive');
@@ -368,7 +374,7 @@ document.getElementById('addNewSch').addEventListener('click', function(click) {
     click.preventDefault();
     removeMsgs(savedMsg);
     if (dataEntered()) {
-        console.log('adding new search field');
+        //console.log('adding new search field');
         let blankObj = {blank: ''};
         addSchConts(blankObj);
         updateAll();
@@ -386,7 +392,7 @@ function detectDelete() {
     updateDeleteBtns();
     deleteBtns.forEach(function(deleteButton) {
         deleteButton.addEventListener('click',function(click) {
-            console.log('delete detected');
+            //console.log('delete detected');
             updateDeleteWarn();
             if (delWarn != 'off') {
                 insertDeleteWarning(click);
@@ -399,7 +405,7 @@ function detectDelete() {
 
 // on/off
 function schOnOff() {
-    console.log('on off listener activate');
+    //console.log('on off listener activate');
     let toggles = document.querySelectorAll('.schActv');
     toggles.forEach(function(toggle) {
         toggle.removeEventListener('change', toggleSearch);
@@ -408,9 +414,10 @@ function schOnOff() {
 }
 
 // drag & drop sort
+
 function removeListeners() {
-    console.log('removing listeners');
-    if(draggedIndicator === 1) {
+    //console.log('removing listeners');
+    if(dragListeners === 1) {
         schArea.removeEventListener('mousedown', mousedown);
         draggables.forEach(schCont => {
             schCont.removeEventListener('dragstart', dragstart);
@@ -419,50 +426,58 @@ function removeListeners() {
         schArea.removeEventListener('dragover', dragover);
         schArea.removeEventListener('drop', drop);
         schArea.removeEventListener('mouseup', mouseup);
+        draggedIndicator = 0;
+        dragListeners = 0;
     }
 }
+
 
 function dragAndDrop () {
     removeListeners();
     updateDraggables();
-    schArea.addEventListener("mousedown", function(event) {
-        if (event.target.classList.contains('btnReorder')) {
-            schCont = event.target.closest('.schCont');
-            schCont.setAttribute('draggable', 'true');
-        }
-    });
-    
-    draggables.forEach(draggable => {
-        draggable.addEventListener('dragstart', () => {
-            draggable.classList.add('dragging')
+
+    if(draggables.length > 0) {
+        dragListeners = 1;
+
+        schArea.addEventListener("mousedown", mousedown = function(event) {
+            if (event.target.classList.contains('btnReorder')) {
+                schCont = event.target.closest('.schCont');
+                schCont.setAttribute('draggable', 'true');
+            }
+        });
+        
+        draggables.forEach(draggable => {
+            draggable.addEventListener('dragstart', dragstart = () => {
+                draggable.classList.add('dragging')
+            })
+        
+            draggable.addEventListener('dragend', dragend = () => {
+                draggable.classList.remove('dragging')
+            })
         })
-    
-        draggable.addEventListener('dragend', () => {
-            draggable.classList.remove('dragging')
+        
+        schArea.addEventListener('dragover', dragover = e => {
+            e.preventDefault();
+            const afterElement = getDragAfterElement(schArea, e.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (afterElement == null) {
+                schArea.appendChild(draggable);
+            } else {
+                schArea.insertBefore(draggable, afterElement);
+            }
         })
-    })
-    
-    schArea.addEventListener('dragover', e => {
-        e.preventDefault();
-        const afterElement = getDragAfterElement(schArea, e.clientY);
-        const draggable = document.querySelector('.dragging');
-        if (afterElement == null) {
-            schArea.appendChild(draggable);
-        } else {
-            schArea.insertBefore(draggable, afterElement);
-        }
-    })
-    
-    schArea.addEventListener("drop", function(event) {
-        event.preventDefault();
-        removeDrag();
-        //saveCheck();
-        draggedIndicator = 1;
-    });
-    
-    schArea.addEventListener("mouseup", function() {
-        removeDrag();
-    });
+        
+        schArea.addEventListener("drop", drop = function(event) {
+            event.preventDefault();
+            removeDrag();
+            saveCheck();
+            draggedIndicator = 1;
+        });
+        
+        schArea.addEventListener("mouseup", mouseup = function() {
+            removeDrag();
+        });
+    }
 }
 
 

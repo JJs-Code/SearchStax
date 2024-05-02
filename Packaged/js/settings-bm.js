@@ -11,7 +11,7 @@ let bmNameMsg          = document.getElementById('bmNameMsg');
 let bmUrlMsg           = document.getElementById('bmUrlMsg');
 let bmUniqueNameMsg    = document.getElementById('bmUniqueNameMsg');
 let bmSavedMsg         = document.getElementById('bmSavedMsg');
-let bmDraggedIndicator = 0;
+let bmDragListeners    = 0;
 
 // initialise
 bmInitialise();
@@ -26,8 +26,9 @@ function bmUpdateAll() {
     bmUpdateDeleteWarn();
     bmUpdateWarningMsgs();
     bmDetectDelete();
-    bmRunListeners();
     stgOnOffAll();
+    bmRunListeners();
+    //console.log('bm updating all');
 }
 
 function bmUpdate1stChild()    {firstBmChild    = bmArea.querySelector('div.bmCont');}
@@ -35,12 +36,12 @@ function bmUpdateDraggables()  {bmDraggables    = document.querySelectorAll('.bm
 function bmUpdateStoredData()  {bmStoredData    = JSON.parse(localStorage.getItem('bmData'));}
 function bmUpdateDeleteBtns()  {bmDeleteBtns    = document.querySelectorAll('.bm-btn[title="delete"]');}
 function bmUpdateDeleteWarn()  {bmDelWarnLs     = JSON.parse(localStorage.getItem('delWarn'));
-                                 bmDelWarn       = bmDelWarnLs ? bmDelWarnLs : 'on';}
+                                bmDelWarn       = bmDelWarnLs ? bmDelWarnLs : 'on';}
 function bmUpdateWarningMsgs() {bmWarningMsg    = document.getElementById('bmWarningMsg');
-                                 bmNameMsg       = document.getElementById('bmNameMsg');
-                                 bmUrlMsg        = document.getElementById('bmUrlMsg');
-                                 bmUniqueNameMsg = document.getElementById('bmUniqueNameMsg');
-                                 bmSavedMsg      = document.getElementById('bmSavedMsg');}
+                                bmNameMsg       = document.getElementById('bmNameMsg');
+                                bmUrlMsg        = document.getElementById('bmUrlMsg');
+                                bmUniqueNameMsg = document.getElementById('bmUniqueNameMsg');
+                                bmSavedMsg      = document.getElementById('bmSavedMsg');}
 
 function bmRunListeners() {
     bmDetectDelete();
@@ -52,6 +53,7 @@ function bmInitialise() {
     if (bmStoredData) {
         bmAddBmConts(bmStoredData);
     }
+    //console.log('bm initialise');
     bmUpdateAll();
 }
 
@@ -60,7 +62,7 @@ function bmAddBmConts(obj) {
     entries.forEach(([name, key]) => {
         var newBmCont = document.createElement('div');
         newBmCont.className = 'bmCont';
-        newBmCont.id = name != 'blank' ? name.replace(/\s+/g, '-') : 'newBm';
+        newBmCont.id = name != 'blank' ? name.replace(/\s+/g, '_') : 'newBm';
         newBmCont.innerHTML = bmHtml(name, key);
         bmUpdate1stChild();
         if (firstBmChild) {
@@ -68,6 +70,7 @@ function bmAddBmConts(obj) {
         } else {
             bmArea.appendChild(newBmCont);
         }
+        bmUpdateAll();
     });
 }
 
@@ -115,14 +118,14 @@ function bmDataEntered() {
 }
 
 function bmBadSyntax() {
-    console.log('bad syntax activate')
+    //console.log('bad syntax activate')
     let badName = false;
     let badUrl = false;
     document.querySelectorAll('.bmName').forEach(input => {
         if (/[^a-zA-Z0-9\s]/.test(input.value)) badName = true;
     });
     document.querySelectorAll('.bmUrl').forEach(url => {
-        console.log(`url value = ${url.value}`);
+        //console.log(`url value = ${url.value}`);
         if (url.value.substring(0,4) != 'http' && url.value != '') {
             badUrl = true;
         }
@@ -226,7 +229,7 @@ function bmSaveBookmark() {
     nameInputs.forEach(function (nameInput) {
         bmContElement = nameInput.closest('.bmCont');
         let nameValue = nameInput.value;
-        bmContElement.id = nameValue.replace(/\s+/g, '-');
+        bmContElement.id = nameValue.replace(/\s+/g, '_');
         bmData[nameValue] = {};
 
         function inputs(className, prop) {
@@ -238,11 +241,13 @@ function bmSaveBookmark() {
                 inputValue = input.value;
             }
             bmData[nameValue][prop] = inputValue;
-            console.log('saving bookmark for ' + className + '\tin ' + nameValue);
+            //console.log('saving bookmark for ' + className + '\tin ' + nameValue);
         }
 
         inputs('bmUrl',   'url');
         inputs('bmActv',  'state');
+        bmUpdateAll();
+        //location.reload();
     })
 
     localStorage.setItem('bmData', JSON.stringify(bmData));
@@ -257,18 +262,18 @@ function bmInsertDeleteWarning(click) {
         let checkbox = document.getElementById('daa-cb');
         bmUpdateDeleteWarn();
         checkbox.addEventListener('change', function () {
-            console.log('checkbox change detected');
+            //console.log('checkbox change detected');
             if (checkbox.checked) {
-                console.log('check on');
+                //console.log('check on');
                 bmDelWarn = 'off';
             } else {
-                console.log('check off');
+                //console.log('check off');
                 bmDelWarn = 'on';
             };
             localStorage.setItem('delWarn', JSON.stringify(bmDelWarn));
             bmUpdateDeleteWarn();
-            console.log(`Delete confirmation set to ${bmDelWarn}`);
-            console.log(document.getElementById('delWarn'));
+            //console.log(`Delete confirmation set to ${bmDelWarn}`);
+            //console.log(document.getElementById('delWarn'));
         });
         document.getElementById('warn-cancel').addEventListener('click', function() {
             document.getElementById('delMsgBox').remove();
@@ -281,10 +286,10 @@ function bmInsertDeleteWarning(click) {
 }
 
 function bmDeleteBookmark(click) {
-    console.log('delete clicked');
+    //console.log('delete clicked');
     click.preventDefault();
     let bmContElement = click.target.closest('.bmCont');
-    let nameId = bmContElement.id.replace(/-/g, ' ');
+    let nameId = bmContElement.id.replace(/_/g, ' ');
     bmContElement.remove();
     bmUpdateStoredData();
     delete bmStoredData[nameId];
@@ -319,7 +324,7 @@ document.getElementById('bmAddNew').addEventListener('click', function(click) {
     click.preventDefault();
     bmRemoveMsgs(bmSavedMsg);
     if (bmDataEntered()) {
-        console.log('adding new bookmark field');
+        //console.log('adding new bookmark field');
         let blankObj = {blank: ''};
         bmAddBmConts(blankObj);
         bmUpdateAll();
@@ -337,7 +342,7 @@ function bmDetectDelete() {
     bmUpdateDeleteBtns();
     bmDeleteBtns.forEach(function(deleteButton) {
         deleteButton.addEventListener('click',function(click) {
-            console.log('delete detected');
+            //console.log('delete detected');
             bmUpdateDeleteWarn();
             if (bmDelWarn != 'off') {
                 bmInsertDeleteWarning(click);
@@ -354,7 +359,7 @@ function bmSchOnOff () {
     toggles.forEach(function(toggle) {
         toggle.addEventListener('change', function() {
             let bmContElement = toggle.closest('.bmCont');
-            let nameId = bmContElement.id.replace(/-/g, ' ');
+            let nameId = bmContElement.id.replace(/_/g, ' ');
             let toggleCheck = toggle.hasAttribute('checked');
             if (toggleCheck) {
                 bmContElement.classList.add('inactive');
@@ -373,119 +378,62 @@ function bmSchOnOff () {
 
 
 function bmRemoveListeners() {
-    if(bmDraggedIndicator === 1) {
-        bmArea.removeEventListener('mousedown', mousedown);
+    //console.log('bm removing listeners');
+    if(bmDragListeners === 1) {
+        bmArea.removeEventListener('mousedown', bmMousedown);
         bmDraggables.forEach(bmCont => {
-            bmCont.removeEventListener('dragstart', dragstart);
-            bmCont.removeEventListener('dragend', dragend);
+            bmCont.removeEventListener('dragstart', bmDragstart);
+            bmCont.removeEventListener('dragend', bmDragend);
         });
-        bmArea.removeEventListener('dragover', dragover);
-        bmArea.removeEventListener('drop', drop);
-        bmArea.removeEventListener('mouseup', mouseup);
+        bmArea.removeEventListener('dragover', bmDragover);
+        bmArea.removeEventListener('drop', bmDrop);
+        bmArea.removeEventListener('mouseup', bmMouseup);
     }
 }
 
 function bmDragAndDrop() {
-    // Remove existing event listeners
     bmRemoveListeners();
     bmUpdateDraggables();
-    
-    bmArea.addEventListener("mousedown", mousedown = function(event) {
-        if (event.target.classList.contains('bmBtnReorder')) {
-            bmCont = event.target.closest('.bmCont');
-            bmCont.setAttribute('draggable', 'true');
-        }
-    });
-    
-    bmDraggables.forEach(bmCont => {
-        bmCont.addEventListener('dragstart', dragstart = () => {
-            bmCont.classList.add('dragging');
+
+    if (bmDraggables.length > 0) {
+        bmDragListeners = 1;
+
+        bmArea.addEventListener("mousedown", bmMousedown = function(event) {
+            if (event.target.classList.contains('bmBtnReorder')) {
+                bmCont = event.target.closest('.bmCont');
+                bmCont.setAttribute('draggable', 'true');
+            }
         });
-    
-        bmCont.addEventListener('dragend', dragend = () => {
-            bmCont.classList.remove('dragging');
+        
+        bmDraggables.forEach(bmCont => {
+            bmCont.addEventListener('dragstart', bmDragstart = () => {
+                bmCont.classList.add('dragging');
+            });
+        
+            bmCont.addEventListener('dragend', bmDragend = () => {
+                bmCont.classList.remove('dragging');
+            });
         });
-    });
-    
-    bmArea.addEventListener('dragover', dragover = e => {
-        e.preventDefault();
-        const afterElement = bmGetDragAfterElement(bmArea, e.clientY);
-        const draggable = document.querySelector('.dragging');
-        if (afterElement == null) {
-            bmArea.appendChild(draggable);
-        } else {
-            bmArea.insertBefore(draggable, afterElement);
-        }
-    });
-    
-    bmArea.addEventListener("drop", drop = function(event) {
-        event.preventDefault();
-        bmRemoveDrag();
-        //bmSaveCheck();
-        bmDraggedIndicator = 1;
-    });
-    
-    bmArea.addEventListener("mouseup", mouseup = function() {
-        bmRemoveDrag();
-    });
+        
+        bmArea.addEventListener('dragover', bmDragover = e => {
+            e.preventDefault();
+            const afterElement = bmGetDragAfterElement(bmArea, e.clientY);
+            const draggable = document.querySelector('.dragging');
+            if (afterElement == null) {
+                bmArea.appendChild(draggable);
+            } else {
+                bmArea.insertBefore(draggable, afterElement);
+            }
+        });
+        
+        bmArea.addEventListener("drop", bmDrop = function(event) {
+            event.preventDefault();
+            bmRemoveDrag();
+            bmSaveCheck();
+        });
+        
+        bmArea.addEventListener("mouseup", bmMouseup = function() {
+            bmRemoveDrag();
+        });
+    }
 }
-
-
-/*
-// drag & drop sort
-function removeDragEventListeners() {
-    bmArea.removeEventListener("mousedown", mousedownHandler);
-    bmDraggables.forEach(bmCont => {
-        bmCont.removeEventListener('dragstart', dragstartHandler);
-        bmCont.removeEventListener('dragend', dragendHandler);
-    });
-    bmArea.removeEventListener('dragover', dragoverHandler);
-    bmArea.removeEventListener("drop", dropHandler);
-    bmArea.removeEventListener("mouseup", mouseupHandler);
-}
-
-function bmDragAndDrop () {
-    removeDragEventListeners();
-    bmUpdateDraggables();
-    bmArea.addEventListener("mousedown", function(event) {
-        if (event.target.classList.contains('bmBtnReorder')) {
-            bmCont = event.target.closest('.bmCont');
-            bmCont.setAttribute('draggable', 'true');
-        }
-    });
-    
-    bmDraggables.forEach(bmCont => {
-        bmCont.addEventListener('dragstart', () => {
-            bmCont.classList.add('dragging')
-        })
-    
-        bmCont.addEventListener('dragend', () => {
-            bmCont.classList.remove('dragging')
-        })
-    })
-    
-    bmArea.addEventListener('dragover', e => {
-        e.preventDefault();
-        const afterElement = bmGetDragAfterElement(bmArea, e.clientY);
-        const draggable = document.querySelector('.dragging');
-        if (afterElement == null) {
-            bmArea.appendChild(draggable);
-        } else {
-            bmArea.insertBefore(draggable, afterElement);
-        }
-    })
-    
-    bmArea.addEventListener("drop", function(event) {
-        event.preventDefault();
-        bmRemoveDrag();
-        bmSaveCheck();
-    });
-    
-    bmArea.addEventListener("mouseup", function() {
-        bmRemoveDrag();
-    });
-}
-*/
-// Additional functions specific to bookmarks
-
-// Ensure to adjust HTML structure and CSS accordingly for bookmarks

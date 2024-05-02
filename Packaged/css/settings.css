@@ -281,7 +281,51 @@ label {
     margin: 0;
 }
 
+/*Suggestions & Feedback*/
+.feedback {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-left:  auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 20px;
+    max-width: 700px;
+    border-radius: 20px;
+    background-color: var(--dark2);
+}
+.feedback-cont {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
 
+}
+.feedback-icon {
+    right: 0;
+    width: 120px;
+    font-size: 50px;
+}
+.feedback-btn {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--blue);
+    border-color: var(--blue);
+    border-radius: 15px;
+    padding: 10px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.PayPal-btn {
+    display: block;
+    height: 25px;
+}
 
 /*Chrome Extensions*/
 
@@ -326,7 +370,9 @@ label {
     gap: 0px;
     width: 65px;
     height: 65px;
+    border-width: 2px;
     background-color: var(--blue);
+    border-color: var(--blue);
     /*background: url(logo/cws.png) no-repeat center/cover;*/
     border-radius: 15px;
     padding: 10px;

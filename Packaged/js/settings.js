@@ -1,3 +1,7 @@
+// Version No.
+document.getElementById('version').innerHTML = 'Version ' + versionNo;
+
+
     /*ACTIVATE SETTING PAGE HILIGHT BY URL*/
     
 // detects when url changes and reruns the code

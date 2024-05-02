@@ -57,25 +57,12 @@ function stgOnOffAll() {
     stgOnOff('swapBookmarks');
 }
 
-/*
-//import/export
-const IEField = document.getElementById('import-export');
-const importSave = document.getElementById('btn-importSave');
-let searchData = localStorage.getItem('schData');
-IEField.value = searchData;
-importSave.addEventListener('click', function() {
-    searchData = IEField.value;
-    localStorage.setItem('schData', searchData);
-    location.reload();
-});
-*/
 
 //import/export
 const IEField = document.getElementById('import-export');
 const importSave = document.getElementById('btn-importSave');
 let searchData = localStorage.getItem('schData') || '';
 let bookmarkData = localStorage.getItem('bmData') || '';
-console.log(searchData + bookmarkData);
 const blankCheck = searchData === '' || bookmarkData === '' ? '' : '|';
 const concData = searchData + blankCheck + bookmarkData;
 IEField.value = concData;

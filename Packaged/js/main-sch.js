@@ -18,7 +18,6 @@ function initialize() {
 	bgImgBlur();
 	addSearchElements(urls);
 	addBookmarks(bmData);
-	console.log(urls);
 }
 
 //sets the background blur level
@@ -33,7 +32,7 @@ function addSearchElements(data) {
 	const entries = Object.entries(data);
 	for (const [name, { url }] of entries) {
 		if(data[name].state !== "off") {
-			const codeName = name.replace(/\s+/g, "-");
+			const codeName = name.replace(/\s+/g, "_");
 
 			//add container
 			const schDiv = document.createElement("div");
@@ -120,14 +119,15 @@ document.addEventListener("click", function (clicked) {
 	let element = clicked.target;
 	let tag = element.tagName;
 	if (tag === "INPUT") {
-		let engine = element.id;
-		createSearchUrl(engine);
+		let inputId = element.id;
+		let engine = inputId.replace(/_/g, ' ');
+		createSearchUrl(inputId, engine);
 	}
 });
 
 //on enter, finds correct url and inputs query
-function createSearchUrl(engine) {
-	let input = document.getElementById(engine);
+function createSearchUrl(inputId, engine) {
+	let input = document.getElementById(inputId);
 	input.addEventListener("keydown", function (submit) {
 		if (submit.key === "Enter") {
 			submit.preventDefault();
@@ -152,10 +152,11 @@ const anim = localStorage.getItem('googleAnim');
 const colors = localStorage.getItem('borderColors');
 let css = "";
 for (var engine in urls) {
+	const engineId = engine.replace(/\s+/g, "_");
 	if (engine.includes("Google") && anim != '"off"') {
 		colorAnimations(engine);
 	} else if (colors != '"off"') {
-		css += `input#${engine}:focus { outline-color: ${urls[engine].color};}\n`;
+		css += `input#${engineId}:focus { outline-color: ${urls[engine].color};}\n`;
 	}
 }
 style.innerHTML = css;
@@ -163,10 +164,11 @@ document.head.appendChild(style);
 
 //input outline color animations
 function colorAnimations(engine) {
+	const codeName = engine.replace(/\s+/g, "_");
 	if (engine.includes("Google")) {
-		css += `input#${engine}:focus { animation: googleColors 4s; animation-iteration-count: infinite; }\n`;
+		css += `input#${codeName}:focus { animation: googleColors 4s; animation-iteration-count: infinite; }\n`;
 	} else {
-		css += `input#${engine}:focus { outline-color: #FFFFFF;}\n`;
+		css += `input#${codeName}:focus { outline-color: #FFFFFF;}\n`;
 	}
 }
 

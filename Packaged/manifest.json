@@ -2,14 +2,20 @@
     "update_url": "https://clients2.google.com/service/update2/crx",
     "manifest_version": 3,
     "name": "SearchStax: Multi Search Home Page",
-    "version": "0.0.2.1",
+    "version": "0.0.2",
     "description": "Multiple search bars on your home page, custom bookmarks, , beautiful daily backgrounds & more",
-        "512": "Logo.png"
+    "icons": {
+        "16":  "Logo/Logo_16.png",
+        "32":  "Logo/Logo_32.png",
+        "64":  "Logo/Logo_64.png",
+        "128": "Logo/Logo_128.png",
+        "256": "Logo/Logo_256.png",
+        "512": "Logo/Logo.png"
     },
     "action": {
-        "default_icon": "Logo.png"
+        "default_icon": "Logo/Logo.png"
     },
     "chrome_url_overrides": {
-        "newtab": "newtab.html"
+        "newtab": "main.html"
     }
 }

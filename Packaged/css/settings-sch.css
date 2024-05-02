@@ -126,6 +126,10 @@ button {
     background-color: var(--blue);
     border-color: var(--blue);
 }
+.btnWhite {
+    background-color: white;
+    border-color: white;
+}
 .btnReorder, .bmBtnReorder {
     cursor: move;
 }
