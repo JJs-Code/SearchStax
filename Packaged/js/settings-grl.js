@@ -55,6 +55,7 @@ function stgOnOffAll() {
     stgOnOff('borderColors');
     stgOnOff('showLogo');
     stgOnOff('swapBookmarks');
+    stgOnOff('newTab');
 }
 
 

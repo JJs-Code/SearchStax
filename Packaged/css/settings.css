@@ -339,6 +339,7 @@ label {
     margin-right: auto;
     margin-top:    20px;
     padding: 30px;
+    width: 100%;
     max-width: 700px;
     height: 80px;
     border-radius: 20px;

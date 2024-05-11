@@ -1,14 +1,13 @@
 //vars
-let storedData = JSON.parse(localStorage.getItem("schData"));
-let urls = storedData ? storedData : defaultSearches;
-let bmStoredData = JSON.parse(localStorage.getItem('bmData'));
-let bmData = bmStoredData ? bmStoredData : '';
+let urls = JSON.parse(localStorage.getItem("schData")) || defaultSearches;
+let bmData = JSON.parse(localStorage.getItem('bmData')) || '';
 const header = document.getElementById('headerBar');
 const schAreaCont = document.getElementById('schBarCont');
 const schArea = document.getElementById('searchBars');
 const bmMainCont = document.getElementById('bmMainCont');
 const bmArea = document.getElementById('bmArea');
 const AIChat = document.getElementById('AIChat');
+const newTab = localStorage.getItem('newTab') || '';
 
 /*INITIALIZE*/
 
@@ -18,6 +17,11 @@ function initialize() {
 	bgImgBlur();
 	addSearchElements(urls);
 	addBookmarks(bmData);
+
+	if (!newTab) {
+		localStorage.setItem('newTab', '"off"');
+		newTab = localStorage.getItem('newTab');
+	}
 }
 
 //sets the background blur level
@@ -54,7 +58,7 @@ function addSearchElements(data) {
 	
 			const anchor = document.createElement("a");
 			anchor.href = `http://${rootDomain}`;
-			anchor.target = "_blank";
+			//anchor.target = "_blank";
 		
 			const img = document.createElement("img");
 			img.src = faviconUrl;
@@ -101,7 +105,7 @@ function addBookmarks(data) {
 function insertFavicon(container, faviconUrl, rootDomain, iconClass) {
 	const anchor = document.createElement("a");
 	anchor.href = `http://${rootDomain}`;
-	anchor.target = "_blank";
+	//anchor.target = "_blank";
 
 	const img = document.createElement("img");
 	img.src = faviconUrl;
@@ -135,8 +139,13 @@ function createSearchUrl(inputId, engine) {
 			let schUrl =  urls[engine].url
 			let search = schUrl.replace('SEARCHTEXT', query);
 			if (query !== "") {
-				window.open(search, "_blank");
-				input.value = "";
+				console.log(newTab);
+				if (newTab == '"on"') {
+					window.open(search, "_blank");
+					input.value = "";
+				} else {
+					window.location.href = search;
+				}
 			} else {
 				console.error("Search not completed for ", search);
 			}
