@@ -1,5 +1,5 @@
 // version no
-const versionNo = '0.0.2';
+const versionNo = '0.1.0';
 
 
 // default searches
@@ -134,7 +134,7 @@ function deleteWarningHTML() {
             </div>
             <p id="daaCont">
                 <input type="checkbox" id="daa-cb" value=${delWarn}>
-                <label>Dont ask me again</label>
+                <label id="daaText">Dont ask me again</label>
             </p>
         </div>    
     `

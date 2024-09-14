@@ -2,7 +2,7 @@
     "update_url": "https://clients2.google.com/service/update2/crx",
     "manifest_version": 3,
     "name": "SearchStax: Multi Search Home Page",
-    "version": "0.0.2",
+    "version": "0.1.0",
     "description": "Multiple search bars on your home page, custom bookmarks, , beautiful daily backgrounds & more",
     "icons": {
         "16":  "Logo/Logo_16.png",

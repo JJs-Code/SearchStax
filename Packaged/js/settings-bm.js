@@ -11,6 +11,9 @@ let bmNameMsg          = document.getElementById('bmNameMsg');
 let bmUrlMsg           = document.getElementById('bmUrlMsg');
 let bmUniqueNameMsg    = document.getElementById('bmUniqueNameMsg');
 let bmSavedMsg         = document.getElementById('bmSavedMsg');
+let bmDaaListener      = 0;
+let bmDeleteListeners  = 0;
+let bmDraggedIndicator = 0;
 let bmDragListeners    = 0;
 
 // initialise
@@ -35,8 +38,7 @@ function bmUpdate1stChild()    {firstBmChild    = bmArea.querySelector('div.bmCo
 function bmUpdateDraggables()  {bmDraggables    = document.querySelectorAll('.bmCont');}
 function bmUpdateStoredData()  {bmStoredData    = JSON.parse(localStorage.getItem('bmData'));}
 function bmUpdateDeleteBtns()  {bmDeleteBtns    = document.querySelectorAll('.bm-btn[title="delete"]');}
-function bmUpdateDeleteWarn()  {bmDelWarnLs     = JSON.parse(localStorage.getItem('delWarn'));
-                                bmDelWarn       = bmDelWarnLs ? bmDelWarnLs : 'on';}
+function bmUpdateDeleteWarn()  {bmDelWarn       = JSON.parse(localStorage.getItem('delWarn')) || 'on';}
 function bmUpdateWarningMsgs() {bmWarningMsg    = document.getElementById('bmWarningMsg');
                                 bmNameMsg       = document.getElementById('bmNameMsg');
                                 bmUrlMsg        = document.getElementById('bmUrlMsg');
@@ -107,14 +109,15 @@ function bmSaveCheck() {
 
 function bmDataEntered() {
     bmUpdateAll();
-    if(firstBmChild) {
-        let nameInput = firstBmChild.querySelector('.bmName');
-        let urlInput = firstBmChild.querySelector('.bmUrl');
-        let calc = nameInput.value.trim() && urlInput.value.trim();
-        return calc;
-    } else {
+
+    if (!firstBmChild) {
         return true;
     }
+
+    let nameInput = firstBmChild.querySelector('.bmName');
+    let urlInput = firstBmChild.querySelector('.bmUrl');
+    let calc = nameInput.value.trim() && urlInput.value.trim();
+    return calc;
 }
 
 function bmBadSyntax() {
@@ -260,26 +263,49 @@ function bmInsertDeleteWarning(click) {
     if (!bmDelMsgBox) {
         document.getElementById('bookmarks').insertAdjacentHTML("beforeend", deleteWarningHTML());
         let checkbox = document.getElementById('daa-cb');
+        let checkboxClickArea = document.getElementById('daaText');
         bmUpdateDeleteWarn();
-        checkbox.addEventListener('change', function () {
-            //console.log('checkbox change detected');
+
+        checkboxClickArea.addEventListener('click', toggleCheckbox);
+        
+        function toggleCheckbox() {
             if (checkbox.checked) {
-                //console.log('check on');
-                bmDelWarn = 'off';
+                checkbox.checked = false;
+                delWarn = 'on';
             } else {
-                //console.log('check off');
-                bmDelWarn = 'on';
+                checkbox.checked = true;
+                delWarn = 'off';
+            }
+            console.log('delWarn = ' + delWarn);
+            bmUpdateDaaLocalStorage();
+        }
+
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
+                delWarn = 'off';
+            } else {
+                delWarn = 'on';
             };
-            localStorage.setItem('delWarn', JSON.stringify(bmDelWarn));
-            bmUpdateDeleteWarn();
-            //console.log(`Delete confirmation set to ${bmDelWarn}`);
-            //console.log(document.getElementById('delWarn'));
+            bmUpdateDaaLocalStorage();
         });
-        document.getElementById('warn-cancel').addEventListener('click', function() {
+            
+        function bmUpdateDaaLocalStorage() {
+            localStorage.setItem('delWarn', JSON.stringify(delWarn));
+            bmUpdateDeleteWarn();
+            //console.log(`Delete confirmation set to ${delWarn}`);
+            //console.log(document.getElementById('delWarn'));
+        }
+
+        function removeDeleteWarningDialogue() {
+            checkboxClickArea.removeEventListener('click', toggleCheckbox);
             document.getElementById('delMsgBox').remove();
+        }
+
+        document.getElementById('warn-cancel').addEventListener('click', function() {
+            removeDeleteWarningDialogue();
         })
         document.getElementById('warn-delete').addEventListener('click', function() {
-            document.getElementById('delMsgBox').remove();
+            removeDeleteWarningDialogue();
             bmDeleteBookmark(click);
         })
     }
@@ -318,7 +344,8 @@ function bmGetDragAfterElement(bmArea, y) {
     }, { offset: Number.NEGATIVE_INFINITY }).element;
 }
 
-// listeners
+// LISTENERS
+
 // add new
 document.getElementById('bmAddNew').addEventListener('click', function(click) {
     click.preventDefault();
@@ -331,27 +358,47 @@ document.getElementById('bmAddNew').addEventListener('click', function(click) {
     } else bmShowWarningMsg();
 });
 
+
 // save
 document.getElementById('bmSave').addEventListener('click', function(click) {
     click.preventDefault();
     bmSaveCheck();
 });
 
+
 // delete
-function bmDetectDelete() {
-    bmUpdateDeleteBtns();
-    bmDeleteBtns.forEach(function(deleteButton) {
-        deleteButton.addEventListener('click',function(click) {
-            //console.log('delete detected');
-            bmUpdateDeleteWarn();
-            if (bmDelWarn != 'off') {
-                bmInsertDeleteWarning(click);
-            } else {
-                bmDeleteBookmark(click);
-            }
+function bmRemoveDeleteListeners() {
+    if (bmDeleteListeners === 1) {
+        bmDeleteBtns.forEach(function(deleteButton) {
+            deleteButton.removeEventListener('click', bmDeleteHandler);
         })
-    })
+        bmDeleteListeners = 0;
+    }
 };
+
+function bmDeleteHandler(click) {
+    bmUpdateDeleteWarn();
+    if (delWarn != 'off') {
+        bmInsertDeleteWarning(click);
+    } else {
+        bmDeleteBookmark(click);
+        //console.log('delete detected');
+    }
+}
+
+function bmDetectDelete() {
+    bmRemoveDeleteListeners();
+    bmUpdateDeleteBtns();
+
+    if (bmDeleteBtns.length > 0) {
+        bmDeleteListeners = 1;
+
+        bmDeleteBtns.forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', bmDeleteHandler);
+        })
+    }
+};
+
 
 // on/off
 function bmSchOnOff () {
@@ -374,8 +421,6 @@ function bmSchOnOff () {
         })
     });
 }
-
-
 
 function bmRemoveListeners() {
     //console.log('bm removing listeners');

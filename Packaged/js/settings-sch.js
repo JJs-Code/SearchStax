@@ -1,18 +1,20 @@
 // vars
-const schArea        = document.getElementById('schDataCont');
-let firstChild       = schArea.querySelector('div.schCont');
-let draggables       = document.querySelectorAll('.schCont');
-let storedData       = JSON.parse(localStorage.getItem('schData'));
-let deleteBtns       = document.querySelectorAll('.sch-btn[title="delete"]'); 
-let delWarnLs        = JSON.parse(localStorage.getItem('delWarn'));
-let delWarn          = delWarnLs ? delWarnLs : 'on';
-let warningMsg       = document.getElementById('warningMsg');
-let nameMsg          = document.getElementById('nameMsg');
-let urlMsg           = document.getElementById('urlMsg');
-let uniqueNameMsg    = document.getElementById('uniqueNameMsg');
-let savedMsg         = document.getElementById('savedMsg');
-let draggedIndicator = 0;
-let dragListeners = 0;
+const schArea         = document.getElementById('schDataCont');
+let firstChild        = schArea.querySelector('div.schCont');
+let draggables        = document.querySelectorAll('.schCont');
+let storedData        = JSON.parse(localStorage.getItem('schData'));
+let deleteBtns        = document.querySelectorAll('.sch-btn[title="delete"]'); 
+let delWarnLs         = JSON.parse(localStorage.getItem('delWarn'));
+let delWarn           = delWarnLs ? delWarnLs : 'on';
+let warningMsg        = document.getElementById('warningMsg');
+let nameMsg           = document.getElementById('nameMsg');
+let urlMsg            = document.getElementById('urlMsg');
+let uniqueNameMsg     = document.getElementById('uniqueNameMsg');
+let savedMsg          = document.getElementById('savedMsg');
+let daaListener       = 0;
+let deleteListeners   = 0;
+let draggedIndicator  = 0;
+let dragListeners     = 0;
 
 
 // initialise
@@ -113,6 +115,11 @@ function saveCheck() {
 
 function dataEntered() {
     updateAll();
+
+    if (!firstChild) {
+        return true;
+    }
+
     let nameInput = firstChild.querySelector('.schName');
     let urlInput = firstChild.querySelector('.schUrl');
     let calc = nameInput.value.trim() && urlInput.value.trim();
@@ -230,6 +237,13 @@ function saveSearch() {
 
     //const newSch = document.getElementById('newSch');
     const nameInputs = document.querySelectorAll('.schName');
+
+    if (nameInputs.length === 0) {
+        localStorage.setItem('schData', JSON.stringify({}));
+        storedData = {};
+        return;
+    }
+
     nameInputs.forEach(function (nameInput) {
         schContElement = nameInput.closest('.schCont');
         let nameValue = nameInput.value;
@@ -266,26 +280,49 @@ function insertDeleteWarning(click) {
     if (!delMsgBox) {
         document.getElementById('search').insertAdjacentHTML("beforeend", deleteWarningHTML());
         let checkbox = document.getElementById('daa-cb');
+        let checkboxClickArea = document.getElementById('daaText');
         updateDeleteWarn();
-        checkbox.addEventListener('change', function () {
-            //console.log('checkbox change detected');
+        
+        checkboxClickArea.addEventListener('click', toggleCheckbox);
+
+        function toggleCheckbox() {
             if (checkbox.checked) {
-                //console.log('check on');
+                checkbox.checked = false;
+                delWarn = 'on';
+            } else {
+                checkbox.checked = true;
+                delWarn = 'off';
+            }
+            console.log('delWarn = ' + delWarn);
+            updateDaaLocalStorage();
+        }
+    
+        checkbox.addEventListener('change', function () {
+            if (checkbox.checked) {
                 delWarn = 'off';
             } else {
-                //console.log('check off');
                 delWarn = 'on';
             };
+            updateDaaLocalStorage();
+        });
+            
+        function updateDaaLocalStorage() {
             localStorage.setItem('delWarn', JSON.stringify(delWarn));
             updateDeleteWarn();
             //console.log(`Delete confirmation set to ${delWarn}`);
             //console.log(document.getElementById('delWarn'));
-        });
-        document.getElementById('warn-cancel').addEventListener('click', function() {
+        }
+
+        function removeDeleteWarningDialogue() {
+            checkboxClickArea.removeEventListener('click', toggleCheckbox);
             document.getElementById('delMsgBox').remove();
+        }
+
+        document.getElementById('warn-cancel').addEventListener('click', function() {
+            removeDeleteWarningDialogue();
         })
         document.getElementById('warn-delete').addEventListener('click', function() {
-            document.getElementById('delMsgBox').remove();
+            removeDeleteWarningDialogue();
             deleteSch(click);
         })
     }
@@ -295,6 +332,7 @@ function deleteSch(click) {
     //console.log('delete clicked');
     click.preventDefault();
     let schContElement = click.target.closest('.schCont');
+    console.log(schContElement.id + ' Deleted');
     let nameId = schContElement.id.replace(/_/g, ' ');
     schContElement.remove();
     updateStoredData();
@@ -368,7 +406,8 @@ function adjustSchWidth() {
     }
 }
 
-// listeners
+// LISTENERS
+
 // add new
 document.getElementById('addNewSch').addEventListener('click', function(click) {
     click.preventDefault();
@@ -381,27 +420,47 @@ document.getElementById('addNewSch').addEventListener('click', function(click) {
     } else showWarningMsg();
 });
 
+
 // save
 document.getElementById('schSave').addEventListener('click', function(click) {
     click.preventDefault();
     saveCheck();
 });
 
+
 // delete
-function detectDelete() {
-    updateDeleteBtns();
-    deleteBtns.forEach(function(deleteButton) {
-        deleteButton.addEventListener('click',function(click) {
-            //console.log('delete detected');
-            updateDeleteWarn();
-            if (delWarn != 'off') {
-                insertDeleteWarning(click);
-            } else {
-                deleteSch(click);
-            }
+function removeDeleteListeners() {
+    if (deleteListeners === 1) {
+        deleteBtns.forEach(function(deleteButton) {
+            deleteButton.removeEventListener('click', deleteHandler);
         })
-    })
+        deleteListeners = 0;
+    }
 };
+
+function deleteHandler(click) {
+    updateDeleteWarn();
+    if (delWarn != 'off') {
+        insertDeleteWarning(click);
+    } else {
+        deleteSch(click);
+        //console.log('delete detected');
+    }
+}
+
+function detectDelete() {
+    removeDeleteListeners();
+    updateDeleteBtns();
+
+    if (deleteBtns.length > 0) {
+        deleteListeners = 1;
+
+        deleteBtns.forEach(function(deleteButton) {
+            deleteButton.addEventListener('click', deleteHandler);
+        })
+    }
+};
+
 
 // on/off
 function schOnOff() {
@@ -413,9 +472,9 @@ function schOnOff() {
     });
 }
 
-// drag & drop sort
 
-function removeListeners() {
+// drag & drop sort
+function removeDragListeners() {
     //console.log('removing listeners');
     if(dragListeners === 1) {
         schArea.removeEventListener('mousedown', mousedown);
@@ -431,9 +490,8 @@ function removeListeners() {
     }
 }
 
-
 function dragAndDrop () {
-    removeListeners();
+    removeDragListeners();
     updateDraggables();
 
     if(draggables.length > 0) {

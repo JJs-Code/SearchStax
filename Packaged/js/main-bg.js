@@ -1,8 +1,7 @@
 // Vars
 const bgImgElement = document.getElementById('bgImg');
 const headerBar = document.getElementById('headerBar');
-const fetchBackground = localStorage.getItem('selectedBackground'); 
-const storedBackground = fetchBackground ? fetchBackground : 'bg-rand';
+const storedBackground = localStorage.getItem('selectedBackground') || 'bg-rand';
 console.log ('Stored background = ' + storedBackground);
 const dailyBackground = localStorage.getItem('dailyBackground');
 const solidBg = solidBgIds[storedBackground];
@@ -47,7 +46,19 @@ document.addEventListener('DOMContentLoaded', function() {
             '\n' + 'svg { filter: drop-shadow(0 0 0 #FFFFFF) !important; }';
         }
     }
+
+    preloadImages(backgrounds);
 });
+
+// Preload & cache all background images
+function preloadImages(images) {
+    images.forEach(image => {
+        const img = new Image();
+        img.src = `https://raw.githubusercontent.com/JJs-Code/SearchStax/main/backgrounds/${image}.jpg`;
+    });
+    console.log('all images cached');
+}
+
 
     /*SET RANDOM BACKGROUND IMAGE*/
 

@@ -101,6 +101,7 @@ function addBookmarks(data) {
 	}
 }
 
+/*
 // Function to insert favicon into HTML
 function insertFavicon(container, faviconUrl, rootDomain, iconClass) {
 	const anchor = document.createElement("a");
@@ -114,6 +115,7 @@ function insertFavicon(container, faviconUrl, rootDomain, iconClass) {
 	anchor.appendChild(img);
 	container.appendChild(anchor);
 }
+*/
 
 
 /*SEARCH FUNCTIONALITY*/
@@ -240,8 +242,8 @@ if (showLogo == '"off"') {
 const swapSetting = localStorage.getItem('swapBookmarks');
 const swapSide = swapSetting ? swapSetting : '"on"';
 if (swapSide == '"off"') {
-	bmMainCont.classList.remove('LinkLeft');
-	bmMainCont.classList.add('LinkRight');
-	AIChat.classList.remove('LinkRight');
-	AIChat.classList.add('LinkLeft');
+	bmMainCont.classList.remove('LinkRight');
+	bmMainCont.classList.add('LinkLeft');
+	AIChat.classList.remove('LinkLeft');
+	AIChat.classList.add('LinkRight');
 }
